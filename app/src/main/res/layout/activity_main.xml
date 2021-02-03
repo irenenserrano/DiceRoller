@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    tools:context=".MainActivity">
+<!--to have all of the enclosed fields line up in a certain way, use orientation-->
+<!--layout gravity helps to position elements in a specific region-->
+
+    <ImageView
+        android:id="@+id/dice_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src = "@drawable/empty_dice"
+        tools:src = "@drawable/dice_1"/>
+<!--to give actual functionality to the button, lets give the element an id, this id can be used
+in MainActivity to provide the functionality-->
+    <Button
+        android:id="@+id/roll_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/roll_button_text"/>
+    <!--sp stands for scalable pixels-->
+<!--wrap content essential enables a field to be as wide as it needs to be to fit all the content-->
+</LinearLayout>
