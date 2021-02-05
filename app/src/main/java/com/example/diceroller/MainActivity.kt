@@ -21,15 +21,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         val decreaseButton: Button = findViewById(R.id.decrease_button)
-        decreaseButton.text = getString(R.string.decrease_maximum_value) + " " + (NUM_SIDES-1)
+        decreaseButton.text = getString(R.string.decrease_maximum_value, NUM_SIDES-1)
         decreaseButton.setOnClickListener{
             decreaseMaxValue()
             if (NUM_SIDES == 1){
                 decreaseButton.visibility = View.INVISIBLE
             } else {
-                decreaseButton.text = getString(R.string.decrease_maximum_value) + " " + (NUM_SIDES-1)
+                decreaseButton.text = getString(R.string.decrease_maximum_value, NUM_SIDES-1)
             }
-            
+
             // having the toast here should confirm that the value has decrease; It does!
            Toast.makeText(this, "Max Value Decreased to $NUM_SIDES", Toast.LENGTH_SHORT).show()
         }
