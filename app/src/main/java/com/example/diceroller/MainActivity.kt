@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    val NUM_SIDES = 6
+    var NUM_SIDES = 6
     lateinit var DICE_IMAGE: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +18,16 @@ class MainActivity : AppCompatActivity() {
         rollButton.setOnClickListener {
             rollDice()
         }
+
+        val decreaseButton: Button = findViewById(R.id.decrease_button)
+        decreaseButton.text = getString(R.string.decrease_maximum_value)
+        decreaseButton.setOnClickListener{
+            decreaseMaxValue()
+            // having the toast here should confirm that the value has decrease; It does!
+            var toast = Toast.makeText(this, "Max Value Decreased to $NUM_SIDES", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+
         DICE_IMAGE = findViewById<ImageView>(R.id.dice_image)
     }
 
@@ -31,5 +42,9 @@ class MainActivity : AppCompatActivity() {
             else -> R.drawable.dice_6
         }
         DICE_IMAGE.setImageResource(drawableResource)
+    }
+
+    private fun decreaseMaxValue(){
+        NUM_SIDES = if (NUM_SIDES == 1) 1 else NUM_SIDES-1
     }
 }
