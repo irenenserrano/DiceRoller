@@ -2,6 +2,7 @@ package com.example.diceroller
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
@@ -20,12 +21,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         val decreaseButton: Button = findViewById(R.id.decrease_button)
-        decreaseButton.text = getString(R.string.decrease_maximum_value)
+        decreaseButton.text = getString(R.string.decrease_maximum_value) + " " + (NUM_SIDES-1)
         decreaseButton.setOnClickListener{
             decreaseMaxValue()
+            if (NUM_SIDES == 1){
+                decreaseButton.visibility = View.INVISIBLE
+            } else {
+                decreaseButton.text = getString(R.string.decrease_maximum_value) + " " + (NUM_SIDES-1)
+            }
+            
             // having the toast here should confirm that the value has decrease; It does!
-            var toast = Toast.makeText(this, "Max Value Decreased to $NUM_SIDES", Toast.LENGTH_SHORT)
-            toast.show()
+           Toast.makeText(this, "Max Value Decreased to $NUM_SIDES", Toast.LENGTH_SHORT).show()
         }
 
         DICE_IMAGE = findViewById<ImageView>(R.id.dice_image)
@@ -44,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         DICE_IMAGE.setImageResource(drawableResource)
     }
 
-    private fun decreaseMaxValue(){
+    private fun decreaseMaxValue() {
         NUM_SIDES = if (NUM_SIDES == 1) 1 else NUM_SIDES-1
     }
 }
