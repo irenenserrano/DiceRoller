@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity() {
             Timber.i("Die rolled")
         }
 
+        if(savedInstanceState != null) {
+            numSides = savedInstanceState.getInt(KEY_MAX_VALUE)
+            retrieveImage(numSides)
+        }
 
         val decreaseButton: Button = findViewById(R.id.decrease_button)
         decreaseButton.text = getString(R.string.decrease_maximum_value, numSides - 1)
@@ -39,16 +43,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         DICE_IMAGE = findViewById<ImageView>(R.id.dice_image)
-
-        if(savedInstanceState != null) {
-            numSides = savedInstanceState.getInt(KEY_MAX_VALUE)
-            DICE_IMAGE = findViewById(R.id.dice_image)
-        }
     }
 
     private fun rollDice() {
         val randomInt = Random().nextInt(numSides) + 1
-        val drawableResource = when(randomInt) {
+        retrieveImage(randomInt)
+    }
+
+    private fun retrieveImage(dieValue :Int) {
+        val drawableResource = when(dieValue) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -58,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
         DICE_IMAGE.setImageResource(drawableResource)
     }
-    
+
     private fun decreaseMaxValue() {
         numSides = if (numSides == 1) 1 else numSides - 1
     }
