@@ -10,6 +10,8 @@ import android.widget.ImageView
 import timber.log.Timber
 import java.util.*
 
+const val KEY_MAX_VALUE = "max_dice_value"
+
 class MainActivity : AppCompatActivity() {
     var numSides = 6
     lateinit var DICE_IMAGE: ImageView
@@ -37,6 +39,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         DICE_IMAGE = findViewById<ImageView>(R.id.dice_image)
+
+        if(savedInstanceState != null) {
+            numSides = savedInstanceState.getInt(KEY_MAX_VALUE)
+            DICE_IMAGE = findViewById(R.id.dice_image)
+        }
     }
 
     private fun rollDice() {
@@ -51,54 +58,55 @@ class MainActivity : AppCompatActivity() {
         }
         DICE_IMAGE.setImageResource(drawableResource)
     }
-
-    private fun retrieveImage(dieValue :Int) {
-        val drawableResource = when(dieValue) {
-            1 -> R.drawable.dice_1
-            2 -> R.drawable.dice_2
-            3 -> R.drawable.dice_3
-            4 -> R.drawable.dice_4
-            5 -> R.drawable.dice_5
-            else -> R.drawable.dice_6
-        }
-        DICE_IMAGE.setImageResource(drawableResource)
-    }
+    
     private fun decreaseMaxValue() {
         numSides = if (numSides == 1) 1 else numSides - 1
     }
-    
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Timber.i("SAVING DATA; MAX DIE VALUE IS $numSides")
+        outState.putInt(KEY_MAX_VALUE, numSides)
+    }
+
     override fun onStart() {
         super.onStart()
         Timber.i("APP STARTED")
+        Timber.i("RETRIEVING DATA; MAX DIE VALUE IS $numSides")
     }
 
     override fun onResume() {
         super.onResume()
         Timber.i("onResume called")
         Timber.i("APP RESUMED")
+        Timber.i("RETRIEVING DATA; MAX DIE VALUE IS $numSides")
     }
 
     override fun onPause() {
         super.onPause()
         Timber.i("onPause called")
         Timber.i("APP PAUSED")
+        Timber.i("SAVING DATA; MAX DIE VALUE IS $numSides")
     }
 
     override fun onStop() {
         super.onStop()
         Timber.i("onStop called")
         Timber.i("APP STOPPED")
+        Timber.i("SAVING DATA; MAX DIE VALUE IS $numSides")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Timber.i("onDestroy called")
         Timber.i("APP DESTROYED")
+        Timber.i("MAX DIE VALUE IS $numSides")
     }
 
     override fun onRestart() {
         super.onRestart()
         Timber.i("onRestart called")
         Timber.i("APP RESTARTED")
+        Timber.i("MAX DIE VALUE IS $numSides")
     }
 }
