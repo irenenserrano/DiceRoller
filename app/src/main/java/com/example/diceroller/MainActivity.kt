@@ -1,12 +1,10 @@
 package com.example.diceroller
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import timber.log.Timber
 import java.util.*
 
@@ -27,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         if(savedInstanceState != null) {
             numSides = savedInstanceState.getInt(KEY_MAX_VALUE)
-            retrieveImage(numSides)
+            updateImage(numSides)
         }
 
         val decreaseButton: Button = findViewById(R.id.decrease_button)
@@ -47,23 +45,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun rollDice() {
         val randomInt = Random().nextInt(numSides) + 1
-        retrieveImage(randomInt)
+        updateImage(randomInt)
     }
 
-    private fun retrieveImage(dieValue :Int) {
-        val drawableResource = when(dieValue) {
-            1 -> R.drawable.dice_1
-            2 -> R.drawable.dice_2
-            3 -> R.drawable.dice_3
-            4 -> R.drawable.dice_4
-            5 -> R.drawable.dice_5
-            else -> R.drawable.dice_6
-        }
-        DICE_IMAGE.setImageResource(drawableResource)
+    private fun updateImage(dieValue: Int) {
+        DICE_IMAGE.setImageResource(
+                when (dieValue) {
+                    1 -> R.drawable.dice_1
+                    2 -> R.drawable.dice_2
+                    3 -> R.drawable.dice_3
+                    4 -> R.drawable.dice_4
+                    5 -> R.drawable.dice_5
+                    else -> R.drawable.dice_6
+                }
+        )
     }
 
     private fun decreaseMaxValue() {
-        numSides = if (numSides == 1) 1 else numSides - 1
+        if (numSides != 1) numSides--
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
