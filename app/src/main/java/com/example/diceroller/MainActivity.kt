@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             Timber.i("Die rolled")
         }
 
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             numSides = savedInstanceState.getInt(KEY_MAX_VALUE)
             updateImage(numSides)
         }
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         decreaseButton.setOnClickListener {
             Timber.i("MAX VALUE DECREASED; NUM SIDES NOW $numSides")
             decreaseMaxValue()
-            if (numSides == 1){
+            if (numSides == 1) {
                 decreaseButton.visibility = View.INVISIBLE
             } else {
                 decreaseButton.text = getString(R.string.decrease_maximum_value, numSides - 1)
@@ -79,35 +79,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Timber.i("onResume called")
         Timber.i("APP RESUMED")
         Timber.i("RETRIEVING DATA; MAX DIE VALUE IS $numSides")
     }
 
     override fun onPause() {
         super.onPause()
-        Timber.i("onPause called")
         Timber.i("APP PAUSED")
         Timber.i("SAVING DATA; MAX DIE VALUE IS $numSides")
     }
 
     override fun onStop() {
         super.onStop()
-        Timber.i("onStop called")
         Timber.i("APP STOPPED")
         Timber.i("SAVING DATA; MAX DIE VALUE IS $numSides")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.i("onDestroy called")
         Timber.i("APP DESTROYED")
         Timber.i("MAX DIE VALUE IS $numSides")
     }
 
     override fun onRestart() {
         super.onRestart()
-        Timber.i("onRestart called")
         Timber.i("APP RESTARTED")
         Timber.i("MAX DIE VALUE IS $numSides")
     }
